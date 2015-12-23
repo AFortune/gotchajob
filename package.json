@@ -1,8 +1,8 @@
 {
-    "name": "nw-demo",
+    "name": "gotchajob",
     "main": "index.html",
     "window": {
         "frame": true,
-        "toolbar": false
+        "toolbar": true
     }
 }
