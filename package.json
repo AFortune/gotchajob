@@ -1,8 +1,11 @@
 {
-    "name": "gotchajob",
-    "main": "index.html",
-    "window": {
-        "frame": true,
-        "toolbar": true
-    }
+  "name": "gotchajob",
+  "main": "index.html",
+  "window": {
+    "frame": true,
+    "toolbar": true
+  },
+  "dependencies": {
+    "async": "^1.5.0"
+  }
 }
