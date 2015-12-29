@@ -39,3 +39,14 @@ body {
     color:#333;
     cursor: pointer;
 }
+
+.check-box {
+  width: 30px;
+  background-color: #eee;
+  height: 30px;
+  margin-left: 94%;
+  margin-top:-3%;
+}
+.check-box:hover {
+  background-color: #aaa;
+}

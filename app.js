@@ -2,7 +2,6 @@ var request = require('request');
 var Q = require('q');
 var gui = require('nw.gui');
 
-console.log(gui);
 function requestPromise(url) {
     var deferred = Q.defer();
     request(url, function (error, response, body) {
@@ -25,15 +24,17 @@ function getJobData(value) {
 function outputResults(results) {
     var d = Q.defer();
     results.forEach(function(value) {
-        var tile = document.createElement('div');
-        var title = document.createElement('div');
-        var company = document.createElement('div');
+        var tile        = document.createElement('div');
+        var title       = document.createElement('div');
+        var company     = document.createElement('div');
         var description = document.createElement('a');
+        var checkBox = document.createElement('div');
 
-        tile.className = 'jobTile';
-        title.className = 'title';
-        company.className = 'company';
+        tile.className        = 'jobTile';
+        title.className       = 'title';
+        company.className     = 'company';
         description.className = 'description';
+        checkBox.className    = 'check-box';
 
         title.innerHTML       = value.title;
         company.innerHTML     = value.by;
@@ -42,9 +43,17 @@ function outputResults(results) {
             gui.Shell.openItem(description.innerHTML);
         },false);
 
+        checkBox.addEventListener('click', function(evt) {
+            this.style.backgroundColor = '#111';
+        },false);
+        checkBox.addEventListener('dblclick', function(evt) {
+            this.style.backgroundColor = '#eee';
+        },false);
+
         tile.appendChild(title);
         tile.appendChild(company);
         tile.appendChild(description);
+        tile.appendChild(checkBox);
 
         document.getElementById('container').appendChild(tile);
         
