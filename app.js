@@ -1,6 +1,8 @@
 var request = require('request');
 var Q = require('q');
+var gui = require('nw.gui');
 
+console.log(gui);
 function requestPromise(url) {
     var deferred = Q.defer();
     request(url, function (error, response, body) {
@@ -26,7 +28,7 @@ function outputResults(results) {
         var tile = document.createElement('div');
         var title = document.createElement('div');
         var company = document.createElement('div');
-        var description = document.createElement('div');
+        var description = document.createElement('a');
 
         tile.className = 'jobTile';
         title.className = 'title';
@@ -36,9 +38,14 @@ function outputResults(results) {
         title.innerHTML       = value.title;
         company.innerHTML     = value.by;
         description.innerHTML = value.url;
+        description.addEventListener('click', function(evt) {
+            gui.Shell.openItem(description.innerHTML);
+        },false);
+
         tile.appendChild(title);
         tile.appendChild(company);
         tile.appendChild(description);
+
         document.getElementById('container').appendChild(tile);
         
     });
