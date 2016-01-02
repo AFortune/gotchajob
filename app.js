@@ -1,6 +1,19 @@
 var request = require('request');
 var Q = require('q');
 var gui = require('nw.gui');
+var fs = require('fs');
+
+var compose = function () {
+  var fns = arguments;
+
+  return function (result) {
+    for (var i = fns.length - 1; i > -1; i--) {
+      result = fns[i].call(this, result);
+    }
+
+    return result;
+  };
+};
 
 function requestPromise(url) {
     var deferred = Q.defer();
@@ -23,6 +36,7 @@ function getJobData(value) {
 
 function outputResults(results) {
     var d = Q.defer();
+    var createEl = document.createElement;
     results.forEach(function(value) {
         var tile        = document.createElement('div');
         var title       = document.createElement('div');
@@ -39,7 +53,7 @@ function outputResults(results) {
         title.innerHTML       = value.title;
         company.innerHTML     = value.by;
         description.innerHTML = value.url;
-        description.addEventListener('click', function(evt) {
+        description.addEventListener('click', function(evt) {//how could these event functions be refactored to be more functional
             gui.Shell.openItem(description.innerHTML);
         },false);
 
@@ -59,6 +73,17 @@ function outputResults(results) {
         
     });
 }
+
+console.log(Window);
+var win =  gui.Window.get();
+win.on('close', function() {
+  this.hide(); // Pretend to be closed already
+    console.log('HHHLALAL');
+    fs.writeFileSync('test.txt', 'utf8');
+  this.close(true);
+});
+
+//win.close();
 
 requestPromise('https://hacker-news.firebaseio.com/v0/jobstories.json')
     .then(getJobData)
