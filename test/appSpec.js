@@ -1,4 +1,5 @@
 var app = require('../app.js');
+var appData = require('../savedJobs.json');
 var expect = require('chai').expect;
 describe('Testing of the api', function() {
     it('Gets job ids', function() {
@@ -21,4 +22,9 @@ describe('Testing of the api', function() {
         });
         expect(jobIds.length).to.equal(jobs.length);
     });
-})
+});
+describe('Tests for saving user\'s jobs', function() {
+    it('Saves the selected jobs', function() {
+
+    });
+});

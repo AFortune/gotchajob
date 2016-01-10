@@ -1,8 +1,9 @@
 var request = require('request');
 var Q = require('q');
-//var gui = require('nw.gui');
+var gui = require('nw.gui');
 var fs = require('fs');
 
+var yourJobs = [];
 var compose = function () {
   var fns = arguments;
 
@@ -55,11 +56,13 @@ function outputResults(results) {
         company.innerHTML     = value.by;
         description.innerHTML = value.url;
         description.addEventListener('click', function(evt) {//how could these event functions be refactored to be more functional
-            //gui.Shell.openItem(description.innerHTML);
+            gui.Shell.openItem(description.innerHTML);
+
         },false);
 
         checkBox.addEventListener('click', function(evt) {
             this.style.backgroundColor = '#111';
+            yourJobs.push(value);
         },false);
         checkBox.addEventListener('dblclick', function(evt) {
             this.style.backgroundColor = '#eee';
@@ -75,16 +78,18 @@ function outputResults(results) {
     });
 }
 
-exports.requestPromise = requestPromise;
-exports.getJobData = getJobData;
-//console.log(Window);
-//var win =  gui.Window.get();
-//win.on('close', function() {
-//  this.hide(); // Pretend to be closed already
-//    console.log('HHHLALAL');
-//    fs.writeFileSync('test.txt', 'utf8');
-//  this.close(true);
-//});
+//exports.requestPromise = requestPromise;
+//exports.getJobData = getJobData;
+console.log(Window);
+var win =  gui.Window.get();
+win.on('close', function() {
+  this.hide(); // Pretend to be closed already
+    var data = "stuff";
+    console.log('HHHLALAL');
+    fs.writeFileSync('saveData.json', JSON.stringify(yourJobs));
+    this.close(true);
+    //win.close();
+});
 
 //win.close();
 
