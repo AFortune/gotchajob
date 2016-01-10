@@ -7,13 +7,18 @@ describe('Testing of the api', function() {
     });
     it('Gets job info', function() {
         var jobIds = app.requestPromise('https://hacker-news.firebaseio.com/v0/jobstories.json');
-        var jobs = app.getJobData;
-        expect(jobs).to.not.be.an('undefined');
+        return jobIds.then(function(data) {
+            expect(app.getJobData(data)).to.not.be.an('undefined');
+        });
     });
 
     it('Gets all the jobs ', function() {
-        var jobIds = app.requestPromise('https://hacker-news.firebaseio.com/v0/jobstories.json');
-        var jobs = app.getJobData;
+        var jobIds = app.requestPromise('https://hacker-news.firebaseio.com/v0/jobstories.json').then(function(data){
+            return data.length;
+        });
+        var jobs = app.requestPromise('https://hacker-news.firebaseio.com/v0/jobstories.json').then(function(data){
+            return app.getJobData(data);;
+        });
         expect(jobIds.length).to.equal(jobs.length);
     });
 })
