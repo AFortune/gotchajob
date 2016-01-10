@@ -1,6 +1,6 @@
 var request = require('request');
 var Q = require('q');
-var gui = require('nw.gui');
+//var gui = require('nw.gui');
 var fs = require('fs');
 
 var compose = function () {
@@ -37,12 +37,13 @@ function getJobData(value) {
 function outputResults(results) {
     var d = Q.defer();
     var createEl = document.createElement;
+
     results.forEach(function(value) {
         var tile        = document.createElement('div');
         var title       = document.createElement('div');
         var company     = document.createElement('div');
         var description = document.createElement('a');
-        var checkBox = document.createElement('div');
+        var checkBox    = document.createElement('div');
 
         tile.className        = 'jobTile';
         title.className       = 'title';
@@ -54,7 +55,7 @@ function outputResults(results) {
         company.innerHTML     = value.by;
         description.innerHTML = value.url;
         description.addEventListener('click', function(evt) {//how could these event functions be refactored to be more functional
-            gui.Shell.openItem(description.innerHTML);
+            //gui.Shell.openItem(description.innerHTML);
         },false);
 
         checkBox.addEventListener('click', function(evt) {
@@ -74,14 +75,16 @@ function outputResults(results) {
     });
 }
 
-console.log(Window);
-var win =  gui.Window.get();
-win.on('close', function() {
-  this.hide(); // Pretend to be closed already
-    console.log('HHHLALAL');
-    fs.writeFileSync('test.txt', 'utf8');
-  this.close(true);
-});
+exports.requestPromise = requestPromise;
+exports.getJobData = getJobData;
+//console.log(Window);
+//var win =  gui.Window.get();
+//win.on('close', function() {
+//  this.hide(); // Pretend to be closed already
+//    console.log('HHHLALAL');
+//    fs.writeFileSync('test.txt', 'utf8');
+//  this.close(true);
+//});
 
 //win.close();
 
