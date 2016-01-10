@@ -14,7 +14,7 @@ describe('Testing of the api', function() {
 
     it('Gets all the jobs ', function() {
         var jobIds = app.requestPromise('https://hacker-news.firebaseio.com/v0/jobstories.json').then(function(data){
-            return data.length;
+            return data;
         });
         var jobs = app.requestPromise('https://hacker-news.firebaseio.com/v0/jobstories.json').then(function(data){
             return app.getJobData(data);;
