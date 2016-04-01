@@ -38,7 +38,7 @@ function getJobData(value) {
 function outputResults(results) {
     var d = Q.defer();
     var loadingScreen = document.getElementById('loading-screen');
-    loadingScreen.parentElement.removeChild(loadingScreen);
+    //loadingScreen.parentElement.removeChild(loadingScreen);
 
     results.forEach(function(value) {
         var tile        = document.createElement('div');
