@@ -3,10 +3,10 @@ var Q = require('q');
 var gui = require('nw.gui');
 var fs = require('fs');
 
+
 var yourJobs = [];
 var compose = function () {
   var fns = arguments;
-
   return function (result) {
     for (var i = fns.length - 1; i > -1; i--) {
       result = fns[i].call(this, result);
@@ -37,7 +37,8 @@ function getJobData(value) {
 
 function outputResults(results) {
     var d = Q.defer();
-    var createEl = document.createElement;
+    var loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.parentElement.removeChild(loadingScreen);
 
     results.forEach(function(value) {
         var tile        = document.createElement('div');
@@ -78,17 +79,11 @@ function outputResults(results) {
     });
 }
 
-//exports.requestPromise = requestPromise;
-//exports.getJobData = getJobData;
-console.log(Window);
 var win =  gui.Window.get();
 win.on('close', function() {
   this.hide(); // Pretend to be closed already
-    var data = "stuff";
-    console.log('HHHLALAL');
     fs.writeFileSync('saveData.json', JSON.stringify(yourJobs));
     this.close(true);
-    //win.close();
 });
 
 //win.close();
